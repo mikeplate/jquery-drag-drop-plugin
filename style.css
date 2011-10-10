@@ -12,12 +12,6 @@ h1 {
     border-bottom: 2px solid #339;
 	font-size: 16pt;
 }
-h1 a {
-    color: black;
-}
-h1 a:hover {
-    color: white;
-}
 p {
 	margin: 0px;
 	padding: 10px;
@@ -39,6 +33,8 @@ p {
 	font-weight: bold;
 	text-align: center;
 	padding-top: 10px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 .source div {
 	cursor: pointer;
@@ -47,6 +43,10 @@ div.whileDragging {
     background-image: none;
     background-color: black;
     color: white;
+}
+div.not {
+    background-image: none;
+    background-color: #eef;
 }
 div.pendingDrop {
     opacity: 0.5;
@@ -60,6 +60,11 @@ div.pendingDrop {
 	background-color: #888;
 	border: solid 1px #333;
 	box-shadow: 2px 2px 2px #666;
+    text-align: center;
+    font-size: 24pt;
+    font-weight: bold;
 }
-
+.highlight {
+    background-color: #dd8;
+}
 
