@@ -9,14 +9,7 @@
 		<script>
 			$(function() {
                 // First example, A-F.
-				$("#source1").dragdrop({
-					canDrag: function($src) {
-                        return true;
-					},
-					canDrop: function($dst) {
-                        return $dst.attr("id")=="destination" || $dst.parents("#destination").size()>0;
-                    }
-				});
+				$("#source1>div").dragdrop();
 
                 // Second example, G-L.
 				$("#source2").dragdrop({
@@ -24,26 +17,27 @@
                     sourceHide: true,
                     dragClass: "whileDragging",
 					canDrag: function($src) {
-                        return true;
+                        return !$src.hasClass("not");
 					},
 					canDrop: function($dst) {
-                        return false;
+                        return $dst.attr("id")=="destination" && $dst.children().size()<3;
                     },
-					didDrop: function($src, $dst) {
-					}
 				});
 
                 // Third example, M-R.
 				$("#source3").dragdrop({
                     makeClone: true,
                     sourceClass: "pendingDrop",
+                    dropClass: "highlight",
 					canDrag: function($src) {
                         return true;
 					},
-					canDrop: function($dst) {
-                        return false;
-                    },
 					didDrop: function($src, $dst) {
+                        if ($dst.attr("id")!="destination")
+                            $dst = $dst.parents("#destination");
+                        var currentText = $dst.text();
+                        currentText += $src.text();
+                        $dst.text(currentText);
 					}
 				});
 
@@ -52,7 +46,7 @@
 	</head>
 	<body>
 		<h1>Drag and Drop jQuery Plugin Example</h1>
-		<p>Drag any of letter boxes to the area below and note some different visuals that can be specified as options and in stylesheets.</p>
+		<p>Drag any of letter boxes to the area below and note some different visuals and rules that can be specified as options and in stylesheets.</p>
 		<div id="source1" class="source boxes">
 			<div>A</div>
 			<div>B</div>
@@ -64,7 +58,7 @@
 		<div id="source2" class="source boxes">
 			<div>G</div>
 			<div>H</div>
-			<div>I</div>
+			<div class="not">I</div>
 			<div>J</div>
 			<div>K</div>
 			<div>L</div>

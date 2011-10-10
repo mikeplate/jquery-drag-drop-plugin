@@ -8,12 +8,17 @@
         dropClass: null,
         isActive: true,
 
+        // Default is to allow all elements to be dragged
         canDrag: function($src) {
-            return false;
+            return true;
         },
+
+        // Default is to allow dropping inside elements with css stylesheet "drop"
 		canDrop: function($dst) {
-			return false;
+			return $dst.hasClass("drop") || $dst.parents(".drop").size()>0;
 		},
+
+        // Default is to move the element in the DOM and insert it into the element where it is dropped
         didDrop: function($src, $dst) {
             $src.appendTo($dst);
         }
@@ -202,187 +207,8 @@
 			return methods.init.apply(this, arguments);
 		}
 		else {
-			$.error('Method '+method+' does not exist on jQuery.tooltip');
+			$.error('Method '+method+' does not exist on jQuery.dragdrop');
 		}
 	};
 })(jQuery);
-
-
-var DragDrop = function(sourceElementQuery, customSettings) {
-	var settings = {
-		makeClone: false,  // Drag a clone of the source, and not the actual source element
-        sourceClass: null, // Class to apply to source element when dragging a clone of the source element
-        sourceHide: false, // Specify with true that the source element should hade visibility:hidden while dragging a clone
-        dragClass: null,   // Class to apply to the element that is dragged
-        canDropClass: null, // Class to apply to the dragged element when dropping is possible
-        dropClass: null
-	};
-	var isActive = true;
-    var $sourceArea;
-    var $sourceElement = null;
-	var $activeElement = null;
-    var $destElement = null;
-    var dragOffsetX, dragOffsetY;
-    $.extend(settings, customSettings);
-
-    var myself = {
-        on: function() {
-			isActive = true;
-        },
-        off: function() {
-			isActive = false;
-        },
-        canDrag: function(el) {
-            return false;
-        },
-		canDrop: function(el) {
-			return false;
-		},
-        didDrop: function(src, dst) {
-        }
-    };
-
-	function onStart(event) {
-		if (!isActive)
-			return;
-
-		var $element = $(event.target);
-		if (myself.canDrag($element)) {
-			$sourceElement = $element;
-			var offset = $sourceElement.offset();
-			var width = $sourceElement.width();
-			var height = $sourceElement.height();
-            if (event.type=="touchstart") {
-                dragOffsetX = event.originalEvent.touches[0].clientX - offset.left;
-                dragOffsetY = event.originalEvent.touches[0].clientY - offset.top;
-            }
-            else {
-                dragOffsetX = event.pageX - offset.left;
-                dragOffsetY = event.pageY - offset.top;
-            }
-
-            if (settings.makeClone) {
-                $activeElement = $sourceElement.clone(false);
-                $activeElement.appendTo($sourceArea);
-                if (settings.sourceClass)
-                    $sourceElement.addClass(settings.sourceClass);
-                else if (settings.sourceHide)
-                    $sourceElement.css("visibility", "hidden");
-            }
-            else {
-                $activeElement = $sourceElement;
-            }
-
-			$activeElement.css("position", "absolute");
-			$activeElement.css("left", offset.left + "px");
-			$activeElement.css("top", offset.top + "px");
-			$activeElement.css("width", width + "px");
-			$activeElement.css("height", height + "px");
-			if (settings.dragClass)
-				$activeElement.addClass(settings.dragClass);
-
-			$(window).bind("mousemove touchmove", onMove);
-			$(window).bind("mouseup touchend", onEnd);
-
-		    event.stopPropagation();
-			return false;
-		}
-	}
-
-    function cancelDestElement() {
-        if ($destElement!=null) {
-            if (settings.dropClass)
-                $destElement.removeClass(settings.dropClass);
-            $destElement = null;
-        }
-        if ($activeElement!=null) {
-            if (settings.canDropClass) {
-                $activeElement.removeClass(settings.canDropClass);
-            }
-        }
-    }
-
-	function onMove(event) {
-        if (!$activeElement)
-            return;
-
-        var posX, posY;
-        if (event.type=="touchmove") {
-            posX = event.originalEvent.touches[0].clientX;
-            posY = event.originalEvent.touches[0].clientY;
-        }
-        else {
-            posX = event.pageX;
-            posY = event.pageY;
-        }
-        $activeElement.css("display", "none");
-        var destElement = document.elementFromPoint(posX, posY);
-        $activeElement.css("display", "");
-        posX -= dragOffsetX;
-        posY -= dragOffsetY;
-        $activeElement.css("left", posX + "px");
-        $activeElement.css("top", posY + "px");
-
-        if (destElement) {
-            if ($destElement==null || $destElement.get(0)!=destElement) {
-                var $possibleDestElement = $(destElement);
-                if (myself.canDrop($possibleDestElement)) {
-                    if (settings.dropClass) {
-                        if ($destElement!=null)
-                            $destElement.removeClass(settings.dropClass);
-                        $possibleDestElement.addClass(settings.dropClass);
-                    }
-                    if (settings.canDropClass) {
-                        $activeElement.addClass(settings.canDropClass);
-                    }
-                    $destElement = $possibleDestElement;
-                }
-                else if ($destElement!=null) {
-                    cancelDestElement();
-                }
-            }
-        }
-        else if ($destElement!=null) {
-            cancelDestElement();
-        }
-
-        event.stopPropagation();
-        return false;
-	}
-
-	function onEnd(event) {
-        if (!$activeElement)
-            return;
-
-        if ($destElement) {
-            myself.didDrop($sourceElement, $destElement);
-        }
-        cancelDestElement();
-
-        if (settings.makeClone) {
-            $activeElement.remove();
-            if (settings.sourceClass)
-                $sourceElement.removeClass(settings.sourceClass);
-            else if (settings.sourceHide)
-                $sourceElement.css("visibility", "visible");
-        }
-        else {
-            $activeElement.css("position", "static");
-            $activeElement.css("width", "");
-            $activeElement.css("height", "");
-            if (settings.dragClass)
-                $activeElement.removeClass(settings.dragClass);
-        }
-
-		$(window).unbind("mousemove touchmove", onMove);
-		$(window).unbind("mouseup touchend", onEnd);
-        $sourceElement = null;
-		$activeElement = null;
-	}
-
-    $sourceArea = $(sourceElementQuery);
-    $sourceArea.bind("mousedown touchstart", onStart);
-
-    return myself;
-};
 

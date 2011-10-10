@@ -22,6 +22,12 @@ be draggable. You will probably also specify some options while applying the plu
     $("#area").dragdrop();
     $("#area").dragdrop({ makeClone: true, dragClass: "whileDragging"});
 
+Without any options, the default behaviour is to enable dragging of any elements inside the matched
+elements when dragdrop() is called and to enable dropping on any element that has the css stylesheet
+"drop" applied. But by using function callbacks like canDrag and canDrop, you can specify exactly
+what can be dragged and where it can be dropped. And you can also specify what actually happens on
+a drop with the function callback didDrop.
+
 Options
 -------
 
@@ -36,7 +42,9 @@ The plugin supports the following options when it is initialized for a source:
 * dragClass can be the name of a css stylesheet.
 * canDropClass can be the name of a css stylesheet.
 * dropClass can be the name of a css stylesheet.
-* canDrag can be a callback function that returns false, true or an element to drag.
-* canDrop can be a callback function that returns true or false.
-* didDrop can be a callback function.
+* canDrag can be a callback function that returns true or false.
+* canDrop can be a callback function that returns true or false. Return true if the dragged element
+  can be dropped on the specified element.
+* didDrop can be a callback function. If specified, it is assumed to take care of all operations
+  and effects to occur after a successful drag and drop has been performed.
 

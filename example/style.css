@@ -33,6 +33,8 @@ p {
 	font-weight: bold;
 	text-align: center;
 	padding-top: 10px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 .source div {
 	cursor: pointer;
@@ -42,6 +44,10 @@ div.whileDragging {
     background-color: black;
     color: white;
 }
+div.not {
+    background-image: none;
+    background-color: #eef;
+}
 div.pendingDrop {
     opacity: 0.5;
 }
@@ -50,10 +56,15 @@ div.pendingDrop {
 	height: 120px;
     overflow: auto;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 25px;
 	background-color: #888;
 	border: solid 1px #333;
 	box-shadow: 2px 2px 2px #666;
+    text-align: center;
+    font-size: 24pt;
+    font-weight: bold;
 }
-
+.highlight {
+    background-color: #dd8;
+}
 
