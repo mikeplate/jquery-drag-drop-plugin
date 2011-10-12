@@ -1,6 +1,6 @@
 (function($) {
-	var defaultOptions = {
-		makeClone: false,  // Drag a clone of the source, and not the actual source element
+    var defaultOptions = {
+        makeClone: false,  // Drag a clone of the source, and not the actual source element
         sourceClass: null, // Class to apply to source element when dragging a clone of the source element
         sourceHide: false, // Specify with true that the source element should hade visibility:hidden while dragging a clone
         dragClass: null,   // Class to apply to the element that is dragged
@@ -14,19 +14,19 @@
         },
 
         // Default is to allow dropping inside elements with css stylesheet "drop"
-		canDrop: function($dst) {
-			return $dst.hasClass("drop") || $dst.parents(".drop").size()>0;
-		},
+        canDrop: function($dst) {
+            return $dst.hasClass("drop") || $dst.parents(".drop").size()>0;
+        },
 
         // Default is to move the element in the DOM and insert it into the element where it is dropped
         didDrop: function($src, $dst) {
             $src.appendTo($dst);
         }
-	};
+    };
 
     // Status during a drag-and-drop operation. Only one such operation can be in progress at any given time.
     var $sourceElement = null; // Element that user wanted to drag
-	var $activeElement = null; // Element that is shown moving around during drag operation
+    var $activeElement = null; // Element that is shown moving around during drag operation
     var $destElement = null;   // Element currently highlighted as possible drop destination
     var dragOffsetX, dragOffsetY; // Position difference from drag-point to active elements left top corner
 
@@ -47,29 +47,29 @@
 
     // Public methods
 
-	var methods = {
-		init: function(options) {
-			options = $.extend({}, defaultOptions, options);
-			this.data("options", options);
+    var methods = {
+        init: function(options) {
+            options = $.extend({}, defaultOptions, options);
+            this.data("options", options);
             this.bind("mousedown.dragdrop touchstart.dragdrop", methods.onStart);
 
-			return this;
-		},
+            return this;
+        },
 
-		destroy: function() {
+        destroy: function() {
             this.unbind("mousedown.dragdrop touchstart.dragdrop");
             return this;
-		},
+        },
         on: function() {
-			this.data("options").isActive = true;
+            this.data("options").isActive = true;
         },
         off: function() {
-			this.data("options").isActive = false;
+            this.data("options").isActive = false;
         },
 
         onStart: function(event) {
             var $me = $(this);
-			var options = $me.data("options");
+            var options = $me.data("options");
             if (!options.isActive)
                 return;
 
@@ -121,7 +121,7 @@
                 return;
 
             var $me = event.data.source;
-			var options = $me.data("options");
+            var options = $me.data("options");
             var posX, posY;
             if (event.type=="touchmove") {
                 posX = event.originalEvent.touches[0].clientX;
@@ -171,7 +171,7 @@
                 return;
 
             var $me = event.data.source;
-			var options = $me.data("options");
+            var options = $me.data("options");
             if ($destElement) {
                 options.didDrop($sourceElement, $destElement);
             }
@@ -197,18 +197,18 @@
             $sourceElement = null;
             $activeElement = null;
         }
-	};
+    };
 
-	$.fn.dragdrop = function(method) {
-		if (methods[method]) {
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		}
-		else if (typeof method === 'object' || !method) {
-			return methods.init.apply(this, arguments);
-		}
-		else {
-			$.error('Method '+method+' does not exist on jQuery.dragdrop');
-		}
-	};
+    $.fn.dragdrop = function(method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        }
+        else if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        }
+        else {
+            $.error('Method '+method+' does not exist on jQuery.dragdrop');
+        }
+    };
 })(jQuery);
 

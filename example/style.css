@@ -1,17 +1,18 @@
 body {
-	margin: 0px;
-	font-family: Calibri, "Lucida Grande", sans-serif;
+    margin: 0px;
+    font-family: Calibri, "Lucida Grande", sans-serif;
+    background-color: #eee;
 }
 h1 {
-	margin: 0px;
-	padding: 10px;
-	background-color: #88d;
+    margin: 0px;
+    padding: 10px;
+    background-color: #88d;
     background-image: -moz-linear-gradient(90deg, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #88d), color-stop(0.5, #88d), color-stop(0.5, #99d), color-stop(1, #99d));
     background-size: 4px 4px;
     text-shadow: 1px 1px 0px #bbe;
     border-bottom: 2px solid #339;
-	font-size: 16pt;
+    font-size: 16pt;
 }
 h1 a {
     color: black;
@@ -20,31 +21,33 @@ h1 a:hover {
     color: white;
 }
 p {
-	margin: 0px;
-	padding: 10px;
-	font-size: 14pt;
+    margin: 0px;
+    padding: 10px;
+    font-size: 14pt;
+    background-image: -moz-linear-gradient(-90deg, #fff 0%, #eee 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #eee));
 }
 .source {
-	width: 360px;
-	height: 60px;
-	margin: auto;
+    width: 360px;
+    height: 60px;
+    margin: auto;
 }
 .boxes div {
-	float: left;
-	width: 60px;
-	height: 50px;
+    float: left;
+    width: 60px;
+    height: 50px;
     background-color: #bbe;
     background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #eef), color-stop(1, #88d));
     background-image: -moz-linear-gradient(-45deg, #eef, #88d);
-	font-size: 24pt;
-	font-weight: bold;
-	text-align: center;
-	padding-top: 10px;
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
 .source div {
-	cursor: pointer;
+    cursor: pointer;
 }
 div.whileDragging {
     background-image: none;
@@ -59,14 +62,14 @@ div.pendingDrop {
     opacity: 0.5;
 }
 .drop {
-	width: 360px;
-	height: 120px;
+    width: 360px;
+    height: 120px;
     overflow: auto;
-	margin: auto;
-	margin-top: 25px;
-	background-color: #888;
-	border: solid 1px #333;
-	box-shadow: 2px 2px 2px #666;
+    margin: auto;
+    margin-top: 25px;
+    background-color: #888;
+    border: solid 1px #333;
+    box-shadow: 2px 2px 2px #666;
     -webkit-box-shadow: 2px 2px 2px #666;
     text-align: center;
     font-size: 24pt;
