@@ -7,10 +7,17 @@ h1 {
 	padding: 10px;
 	background-color: #88d;
     background-image: -moz-linear-gradient(90deg, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #88d), color-stop(0.5, #88d), color-stop(0.5, #99d), color-stop(1, #99d));
     background-size: 4px 4px;
     text-shadow: 1px 1px 0px #bbe;
     border-bottom: 2px solid #339;
 	font-size: 16pt;
+}
+h1 a {
+    color: black;
+}
+h1 a:hover {
+    color: white;
 }
 p {
 	margin: 0px;
@@ -60,6 +67,7 @@ div.pendingDrop {
 	background-color: #888;
 	border: solid 1px #333;
 	box-shadow: 2px 2px 2px #666;
+    -webkit-box-shadow: 2px 2px 2px #666;
     text-align: center;
     font-size: 24pt;
     font-weight: bold;
