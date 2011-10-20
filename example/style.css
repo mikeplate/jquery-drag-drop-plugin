@@ -3,29 +3,44 @@ body {
     font-family: Calibri, "Lucida Grande", sans-serif;
     background-color: #eee;
 }
-h1 {
-    margin: 0px;
-    padding: 10px;
-    background-color: #88d;
-    background-image: -moz-linear-gradient(90deg, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
+div.header {
+    background-color: #99d;
+    background-image: -moz-linear-gradient(top, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
+    background-image: -o-linear-gradient(top, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #88d), color-stop(0.5, #88d), color-stop(0.5, #99d), color-stop(1, #99d));
     background-size: 4px 4px;
-    text-shadow: 1px 1px 0px #bbe;
     border-bottom: 2px solid #339;
+}
+h1 {
+    margin: 0px auto;
+    max-width: 570px;
+    padding: 10px 10px 10px 20px;
+    text-shadow: 1px 1px 0px #bbe;
+    font-size: 18pt;
+}
+div.content {
+    max-width: 560px;
+    padding: 20px;
+    margin: auto;
+    background-image: -moz-linear-gradient(-90deg, #fff 0%, #eee 100%);
+    background-image: -o-linear-gradient(-90deg, #fff 0%, #eee 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #eee));
+}
+h2 {
+    margin: 0px 0px 15px 0px;
     font-size: 16pt;
 }
-h1 a {
-    color: black;
+ul {
+    margin: 0px 0px 15px 0px;
 }
-h1 a:hover {
-    color: white;
+li {
+    font-size: 14pt;
+}
+li a {
 }
 p {
-    margin: 0px;
-    padding: 10px;
+    margin: 0px 0px 20px 0px;
     font-size: 14pt;
-    background-image: -moz-linear-gradient(-90deg, #fff 0%, #eee 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #eee));
 }
 .source {
     width: 360px;
@@ -37,8 +52,9 @@ p {
     width: 60px;
     height: 50px;
     background-color: #bbe;
-    background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #eef), color-stop(1, #88d));
     background-image: -moz-linear-gradient(-45deg, #eef, #88d);
+    background-image: -o-linear-gradient(-45deg, #eef, #88d);
+    background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #eef), color-stop(1, #88d));
     font-size: 24pt;
     font-weight: bold;
     text-align: center;

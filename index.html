@@ -2,76 +2,22 @@
 <html>
     <head>
         <meta name="viewport" content="width=600,user-scalable=yes" />
-        <title>Drag and Drop jQuery Plugin Simple Example</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Drag and Drop jQuery Plugin</title>
+        <link rel="stylesheet" type="text/css" href="example/style.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-        <script src="https://raw.github.com/mikeplate/jquery-drag-drop-plugin/master/jquery.drag-drop.plugin.js"></script>
-        <script>
-            $(function() {
-                // First example, A-F.
-                $("#source1>div").dragdrop();
-
-                // Second example, G-L.
-                $("#source2").dragdrop({
-                    makeClone: true,
-                    sourceHide: true,
-                    dragClass: "whileDragging",
-                    canDrag: function($src) {
-                        return !$src.hasClass("not");
-                    },
-                    canDrop: function($dst) {
-                        return $dst.attr("id")=="destination" && $dst.children().size()<3;
-                    },
-                });
-
-                // Third example, M-R.
-                $("#source3").dragdrop({
-                    makeClone: true,
-                    sourceClass: "pendingDrop",
-                    dropClass: "highlight",
-                    canDrag: function($src) {
-                        return true;
-                    },
-                    didDrop: function($src, $dst) {
-                        if ($dst.attr("id")!="destination")
-                            $dst = $dst.parents("#destination");
-                        var currentText = $dst.text();
-                        currentText += $src.text();
-                        $dst.text(currentText);
-                    }
-                });
-
-            });
-        </script>
     </head>
     <body>
-        <h1>Drag and Drop jQuery Plugin</h1>
-        <p>Drag any of letter boxes to the area below and note some different visuals and rules that can be specified as options and in stylesheets.</p>
-        <div id="source1" class="source boxes">
-            <div>A</div>
-            <div>B</div>
-            <div>C</div>
-            <div>D</div>
-            <div>E</div>
-            <div>F</div>
+        <div class="header">
+            <h1>Drag and Drop jQuery Plugin</h1>
         </div>
-        <div id="source2" class="source boxes">
-            <div>G</div>
-            <div>H</div>
-            <div class="not">I</div>
-            <div>J</div>
-            <div>K</div>
-            <div>L</div>
-        </div>
-        <div id="source3" class="source boxes">
-            <div>M</div>
-            <div>N</div>
-            <div>O</div>
-            <div>P</div>
-            <div>Q</div>
-            <div>R</div>
-        </div>
-        <div id="destination" class="drop boxes">
+        <div class="content">
+            <h2>About</h2>
+            <p>This jQuery plugin can handle both mouse- and touch-based drag and drop operations transparently. Its goal is to be simple to use without a lot of options. It is heavily based on style sheet class names and JavaScript callbacks for its customization.</p>
+            <p><a href="https://github.com/mikeplate/jquery-drag-drop-plugin/">Download and documentation on Github</a></p>
+            <h2>Examples</h2>
+            <ul>
+                <li><a href="example/simple.html">Simple example of a few configuration possibilities</a></li>
+            </ul>
         </div>
         <a href="https://github.com/mikeplate/jquery-drag-drop-plugin/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
     </body>
