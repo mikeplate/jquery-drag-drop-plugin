@@ -13,14 +13,18 @@ Usage
 
 Include the JavaScript file jquery.drag-drop.plugin.js in your html page.
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script src="jquery.drag-drop.plugin.js"></script>
+~~~~ html
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="jquery.drag-drop.plugin.js"></script>
+~~~~
 
 The plugin is named "dragdrop" and can be applied to an element or a container of elements that should
 be draggable. You will probably also specify some options while applying the plugin.
 
-    $("#area").dragdrop();
-    $("#area").dragdrop({ makeClone: true, dragClass: "whileDragging"});
+~~~~ javascript
+$("#area").dragdrop();
+$("#area").dragdrop({ makeClone: true, dragClass: "whileDragging"});
+~~~~
 
 Without any options, the default behaviour is to enable dragging of any elements inside the matched
 elements when dragdrop() is called and to enable dropping on any element that has the css stylesheet
