@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=600,user-scalable=yes" />
+        <title>Drag and Drop jQuery Plugin Simple Example</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script src="../jquery.drag-drop.plugin.js"></script>
+        <script>
+            $(function() {
+                // First example, A-F.
+                $("#source1>div").dragdrop();
+
+                // Second example, G-L.
+                $("#source2").dragdrop({
+                    makeClone: true,
+                    sourceHide: true,
+                    dragClass: "whileDragging",
+                    canDrag: function($src) {
+                        return !$src.hasClass("not");
+                    },
+                    canDrop: function($dst) {
+                        return $dst.attr("id")=="destination" && $dst.children().size()<3;
+                    },
+                });
+
+                // Third example, M-R.
+                $("#source3").dragdrop({
+                    makeClone: true,
+                    sourceClass: "pendingDrop",
+                    dropClass: "highlight",
+                    canDrag: function($src) {
+                        return true;
+                    },
+                    didDrop: function($src, $dst) {
+                        if ($dst.attr("id")!="destination")
+                            $dst = $dst.parents("#destination");
+                        var currentText = $dst.text();
+                        currentText += $src.text();
+                        $dst.text(currentText);
+                    }
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Drag and Drop jQuery Plugin</h1>
+        <p>Drag any of letter boxes to the area below and note some different visuals and rules that can be specified as options and in stylesheets.</p>
+        <div id="source1" class="source boxes">
+            <div>A</div>
+            <div>B</div>
+            <div>C</div>
+            <div>D</div>
+            <div>E</div>
+            <div>F</div>
+        </div>
+        <div id="source2" class="source boxes">
+            <div>G</div>
+            <div>H</div>
+            <div class="not">I</div>
+            <div>J</div>
+            <div>K</div>
+            <div>L</div>
+        </div>
+        <div id="source3" class="source boxes">
+            <div>M</div>
+            <div>N</div>
+            <div>O</div>
+            <div>P</div>
+            <div>Q</div>
+            <div>R</div>
+        </div>
+        <div id="destination" class="drop boxes">
+        </div>
+    </body>
+</html>
+
