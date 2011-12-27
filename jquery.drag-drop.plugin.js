@@ -7,6 +7,7 @@
         canDropClass: null, // Class to apply to the dragged element when dropping is possible
         dropClass: null,
         isActive: true,
+        container: null, // if set, dragging is limited to this container
 
         // Default is to allow all elements to be dragged
         canDrag: function($src) {
@@ -29,6 +30,7 @@
     var $activeElement = null; // Element that is shown moving around during drag operation
     var $destElement = null;   // Element currently highlighted as possible drop destination
     var dragOffsetX, dragOffsetY; // Position difference from drag-point to active elements left top corner
+    var limits;
 
     // Private helper methods
 
@@ -100,16 +102,29 @@
                     $activeElement = $sourceElement;
                 }
 
-                $activeElement.css("position", "absolute");
-                $activeElement.css("left", offset.left + "px");
-                $activeElement.css("top", offset.top + "px");
-                $activeElement.css("width", width + "px");
-                $activeElement.css("height", height + "px");
-                if (options.dragClass)
-                    $activeElement.addClass(options.dragClass);
+                $activeElement.css({
+                    position: "absolute",
+                    left: offset.left,
+                    top: offset.top,
+                    width: width,
+                    height: height
+                });
+                options.dragClass && $activeElement.addClass(options.dragClass);
 
-                $(window).bind("mousemove.dragdrop touchmove.dragdrop", { source: $me }, methods.onMove);
-                $(window).bind("mouseup.dragdrop touchend.dragdrop", { source: $me}, methods.onEnd);
+                var $c = options.container;
+                if ($c) {
+                    var offset = $c.offset();
+                    limits = {
+                        minX: offset.left,
+                        minY: offset.top,
+                        maxX: offset.left + $c.outerWidth() - $element.outerWidth(),
+                        maxY: offset.top + $c.outerHeight() - $element.outerHeight()
+                    }
+                }
+
+                $(window)
+                    .bind("mousemove.dragdrop touchmove.dragdrop", { source: $me }, methods.onMove)
+                    .bind("mouseup.dragdrop touchend.dragdrop", { source: $me}, methods.onEnd);
 
                 event.stopPropagation();
                 return false;
@@ -136,8 +151,11 @@
             $activeElement.css("display", "");
             posX -= dragOffsetX;
             posY -= dragOffsetY;
-            $activeElement.css("left", posX + "px");
-            $activeElement.css("top", posY + "px");
+            if (limits) {
+                posX = Math.min(Math.max(posX, limits.minX), limits.maxX);
+                posY = Math.min(Math.max(posY, limits.minY), limits.maxY);
+            }
+            $activeElement.css({ left: posX, top: posY });
 
             if (destElement) {
                 if ($destElement==null || $destElement.get(0)!=destElement) {
@@ -194,8 +212,7 @@
 
             $(window).unbind("mousemove.dragdrop touchmove.dragdrop");
             $(window).unbind("mouseup.dragdrop touchend.dragdrop");
-            $sourceElement = null;
-            $activeElement = null;
+            $sourceElement = $activeElement = limits = null;
         }
     };
 
