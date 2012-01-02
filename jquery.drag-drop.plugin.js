@@ -109,7 +109,8 @@
                     width: width,
                     height: height
                 });
-                options.dragClass && $activeElement.addClass(options.dragClass);
+                if (options.dragClass)
+                    $activeElement.addClass(options.dragClass);
 
                 var $c = options.container;
                 if ($c) {
@@ -119,12 +120,12 @@
                         minY: offset.top,
                         maxX: offset.left + $c.outerWidth() - $element.outerWidth(),
                         maxY: offset.top + $c.outerHeight() - $element.outerHeight()
-                    }
+                    };
                 }
 
                 $(window)
                     .bind("mousemove.dragdrop touchmove.dragdrop", { source: $me }, methods.onMove)
-                    .bind("mouseup.dragdrop touchend.dragdrop", { source: $me}, methods.onEnd);
+                    .bind("mouseup.dragdrop touchend.dragdrop", { source: $me }, methods.onEnd);
 
                 event.stopPropagation();
                 return false;
@@ -147,7 +148,10 @@
                 posY = event.pageY;
             }
             $activeElement.css("display", "none");
-            var destElement = document.elementFromPoint(posX, posY);
+            var destElement = document.elementFromPoint(
+                posX - document.documentElement.scrollLeft - document.body.scrollLeft,
+                posY - document.documentElement.scrollTop - document.body.scrollTop
+            );
             $activeElement.css("display", "");
             posX -= dragOffsetX;
             posY -= dragOffsetY;
