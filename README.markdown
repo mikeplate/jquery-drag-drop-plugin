@@ -32,6 +32,10 @@ elements when dragdrop() is called and to enable dropping on any element that ha
 what can be dragged and where it can be dropped. And you can also specify what actually happens on
 a drop with the function callback didDrop.
 
+If you have an element containing many draggable elements, you can either attach the plugin to
+each individual element inside the container or attach it to the single containing element and
+then implement canDrag to make sure that the correct child of the container is dragged.
+
 Options
 -------
 
@@ -52,6 +56,8 @@ The plugin supports the following options when it is initialized for a source:
 * __dropClass__ can be the name of a css stylesheet. This class name is used to identify droppable
   area elements. The default is "drop". If a callback function is specified under "canDrop", this
   class name has no effect.
+* __container__ can be a jQuery element of a container. If specified, elements dragged will not be able
+  to move outside of that container.
 * __canDrag__ can be a callback function that returns true or false. You can use this callback if you'd
   like to apply the plugin to a larger container, and then only make specific elements inside that
   container draggable by returning true from the callback if you've determined the current element

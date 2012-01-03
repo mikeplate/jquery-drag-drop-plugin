@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=600,user-scalable=yes" />
+        <title>Drag and Drop jQuery Plugin Reorder Example</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script src="../jquery.drag-drop.plugin.js"></script>
+        <script>
+            var currentOrder = ["A", "B", "C", "D", "E"];
+
+            $(function() {
+                var $srcElement;
+                var srcIndex, dstIndex;
+
+                $("#list>li").dragdrop({
+                    makeClone: true,
+                    sourceHide: true,
+                    dragClass: "shadow",
+                    canDrag: function($src, event) {
+                        $srcElement = $src;
+                        srcIndex = $srcElement.index();
+                        dstIndex = srcIndex;
+                        return $src;
+                    },
+                    canDrop: function($dst) {
+                        if ($dst.is("li")) {
+                            dstIndex = $dst.index();
+                            if (srcIndex<dstIndex)
+                                $srcElement.insertAfter($dst);
+                            else
+                                $srcElement.insertBefore($dst);
+                        }
+                        return true;
+                    },
+                    didDrop: function($src, $dst) {
+                        // Must have empty function in order to NOT move anything.
+                        // Everything that needs to be done has been done in canDrop.
+
+                        if (srcIndex!=dstIndex) {
+                            var value = currentOrder[srcIndex];
+                            currentOrder.splice(srcIndex, 1);
+                            currentOrder.splice(dstIndex, 0, value);
+                            $("#msg").text("New order of items:" + currentOrder.join(", "));
+                        }
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Reorder Example</h1>
+        </div>
+        <div class="content">
+            <p>Drag the items below to change their order</p>
+            <ul id="list">
+                <li>Item A</li>
+                <li>Item B</li>
+                <li>Item C</li>
+                <li>Item D</li>
+                <li>Item E</li>
+            </ul>
+            <p id="msg"></p>
+        </div>
+        <a href="https://github.com/mikeplate/jquery-drag-drop-plugin/blob/master/example/simple.html"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
+    </body>
+</html>
+

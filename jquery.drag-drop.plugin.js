@@ -10,8 +10,8 @@
         container: null, // if set, dragging is limited to this container
 
         // Default is to allow all elements to be dragged
-        canDrag: function($src) {
-            return true;
+        canDrag: function($src, event) {
+            return $src;
         },
 
         // Default is to allow dropping inside elements with css stylesheet "drop"
@@ -75,8 +75,8 @@
             if (!options.isActive)
                 return;
 
-            var $element = $(event.target);
-            if (options.canDrag($element)) {
+            var $element = options.canDrag($me, event);
+            if ($element) {
                 $sourceElement = $element;
                 var offset = $sourceElement.offset();
                 var width = $sourceElement.width();
@@ -92,7 +92,10 @@
 
                 if (options.makeClone) {
                     $activeElement = $sourceElement.clone(false);
-                    $activeElement.appendTo($me);
+
+                    // Elements that are cloned and dragged around are added to the parent in order
+                    // to get any cascading styles applied.
+                    $activeElement.appendTo($element.parent());
                     if (options.sourceClass)
                         $sourceElement.addClass(options.sourceClass);
                     else if (options.sourceHide)

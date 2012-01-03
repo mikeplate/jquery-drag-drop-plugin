@@ -4,7 +4,7 @@ body {
     background-color: #eee;
 }
 div.header {
-    background-color: #99d;
+    background-color: #aaf;
     background-image: -moz-linear-gradient(top, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
     background-image: -o-linear-gradient(top, #88d 0%, #88d 50%, #99d 50%, #99d 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #88d), color-stop(0.5, #88d), color-stop(0.5, #99d), color-stop(1, #99d));
@@ -30,13 +30,8 @@ h2 {
     margin: 0px 0px 15px 0px;
     font-size: 16pt;
 }
-ul {
-    margin: 0px 0px 15px 0px;
-}
 li {
     font-size: 14pt;
-}
-li a {
 }
 p {
     margin: 0px 0px 20px 0px;
@@ -73,6 +68,7 @@ div.whileDragging {
 div.not {
     background-image: none;
     background-color: #eef;
+    cursor: inherit;
 }
 div.pendingDrop {
     opacity: 0.5;
@@ -83,6 +79,7 @@ div.pendingDrop {
     overflow: auto;
     margin: auto;
     margin-top: 25px;
+    margin-bottom: 25px;
     background-color: #888;
     border: solid 1px #333;
     box-shadow: 2px 2px 2px #666;
@@ -94,4 +91,19 @@ div.pendingDrop {
 .highlight {
     background-color: #dd8;
 }
+ul#list {
+    padding: 0px;
+}
+ul#list li {
+    list-style-type: none;
+    padding: 10px;
+    background-color: #aaf;
+    background-image: -moz-linear-gradient(-90deg, #eef, #88d);
+    background-image: -o-linear-gradient(-90deg, #eef, #88d);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eef), color-stop(1, #88d));
+    border-bottom: 1px solid #88d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
