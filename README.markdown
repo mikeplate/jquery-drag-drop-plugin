@@ -70,3 +70,8 @@ The plugin supports the following options when it is initialized for a source:
   operation is to restore the stylesheet on the source element and if makeClone is false the
   element will be appended as a child to the droppable element.
 
+License
+-------
+
+This software is released under the [MIT License](https://github.com/mikeplate/jquery-drag-drop-plugin/blob/master/LICENSE.txt).
+
