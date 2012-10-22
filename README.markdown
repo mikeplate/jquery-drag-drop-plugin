@@ -27,7 +27,7 @@ $("#area").dragdrop({ makeClone: true, dragClass: "whileDragging"});
 ~~~~
 
 Without any options, the default behaviour is to enable dragging of any elements inside the matched
-elements when dragdrop() is called and to enable dropping on any element that has the css stylesheet
+elements when dragdrop() is called and to enable dropping on any element that has the CSS class
 "drop" applied. But by using function callbacks like canDrag and canDrop, you can specify exactly
 what can be dragged and where it can be dropped. And you can also specify what actually happens on
 a drop with the function callback didDrop.
@@ -43,17 +43,17 @@ The plugin supports the following options when it is initialized for a source:
 
 * __makeClone__ can be true or false. Default is false. If true, the actual source element won't be the
   element that is dragged but rather a clone of it.
-* __sourceClass__ can be the name of a css stylesheet. This stylesheet is applied to the source element
+* __sourceClass__ can be the name of a CSS class. This class is applied to the source element
   in its original position (if visible) while it is dragged.
 * __sourceHide__ can be true or false. When true, the original element is set to invisible while the
   dragging occurs.
-* __dragClass__ can be the name of a css stylesheet. If specified, it is applied to the element that is
+* __dragClass__ can be the name of a CSS class. If specified, it is applied to the element that is
   being dragged while the drag operation is active. Note that if makeClone is false, this is also
   the actual source element.
-* __canDropClass__ can be the name of a css stylesheet. If specified, will be applied to the droppable
+* __canDropClass__ can be the name of a CSS class. If specified, will be applied to the droppable
   area element whenever a dragged element is hovering over it, to signify that the user can drop
   at this time.
-* __dropClass__ can be the name of a css stylesheet. This class name is used to identify droppable
+* __dropClass__ can be the name of a CSS class. This class name is used to identify droppable
   area elements. The default is "drop". If a callback function is specified under "canDrop", this
   class name has no effect.
 * __container__ can be a jQuery element of a container. If specified, elements dragged will not be able
@@ -67,7 +67,7 @@ The plugin supports the following options when it is initialized for a source:
   no effect.
 * __didDrop__ can be a callback function. If specified, it is assumed to take care of all operations
   and effects to occur after a successful drag and drop has been performed. Otherwise, the default
-  operation is to restore the stylesheet on the source element and if makeClone is false the
+  operation is to restore the class on the source element and if makeClone is false the
   element will be appended as a child to the droppable element.
 
 License
