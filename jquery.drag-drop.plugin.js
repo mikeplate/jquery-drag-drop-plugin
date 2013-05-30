@@ -1,5 +1,6 @@
 (function($) {
     var defaultOptions = {
+        returnToBase: false, //Overrides makeClone and sourceHide, sets both to true
         makeClone: false,  // Drag a clone of the source, and not the actual source element
         sourceClass: null, // Class to apply to source element when dragging a clone of the source element
         sourceHide: false, // Specify with true that the source element should hade visibility:hidden while dragging a clone
@@ -74,7 +75,9 @@
             var options = $me.data("options");
             if (!options.isActive)
                 return;
-
+            if(options.returnToBase)
+                options.makeClone = options.sourceHide = true;
+            
             var $element = options.canDrag($me, event);
             if ($element) {
                 $sourceElement = $element;
@@ -235,4 +238,3 @@
         }
     };
 })(jQuery);
-
