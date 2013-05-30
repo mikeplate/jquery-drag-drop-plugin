@@ -47,6 +47,7 @@ The plugin supports the following options when it is initialized for a source:
   in its original position (if visible) while it is dragged.
 * __sourceHide__ can be true or false. When true, the original element is set to invisible while the
   dragging occurs.
+* __returnToBase__ Boolean. Overrides __makeClone__ and __sourceClass__ to true when set to true.
 * __dragClass__ can be the name of a CSS class. If specified, it is applied to the element that is
   being dragged while the drag operation is active. Note that if makeClone is false, this is also
   the actual source element.
